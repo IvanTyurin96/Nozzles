@@ -1,0 +1,8 @@
+{
+	"name": "Nozzles",
+	"references": [
+		"UnityEngine.UI",
+		"Unity.TextMeshPro",
+		"Unity.Mathematics"
+	]
+}

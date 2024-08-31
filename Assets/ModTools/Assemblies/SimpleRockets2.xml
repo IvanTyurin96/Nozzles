@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Collections.CodeGen</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:Unity.Jobs.CodeGen.MethodReferenceExtensions.MakeGenericInstanceMethod(Mono.Cecil.MethodReference,Mono.Cecil.TypeReference[])" -->
+        <member name="T:UnitySourceGeneratedAssemblyMonoScriptTypes_v1.MonoScriptData">
+            <summary>
+            Data is UTF-8 encoded strings
+            </summary>
+        </member>
+    </members>
+</doc>

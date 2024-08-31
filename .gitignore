@@ -1,0 +1,10 @@
+Assets/_ModAssets_
+Library
+Logs
+ModAssetBundles
+obj
+Packages
+Temp
+_ModAssets_.meta
+*.vsconfig
+*.vs

@@ -1,0 +1,2898 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Recorder.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:AccumulationSettings">
+            <summary>
+            A class that represents the settings when capturing accumulations.
+            </summary>
+        </member>
+        <member name="T:AccumulationSettings.ShutterProfileType">
+            <summary>
+            The type of Shutter Profile to use for the accumulation.
+            </summary>
+        </member>
+        <member name="F:AccumulationSettings.ShutterProfileType.Range">
+            <summary>
+            Specifies the Shutter Profile as a trapezoid. The range indicates when the shutter remains fully open between linear opening and linear closing.
+            </summary>
+        </member>
+        <member name="F:AccumulationSettings.ShutterProfileType.Curve">
+            <summary>
+            Specifies the Shutter Profile as a curve through the selection of an animation curve.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.CaptureAccumulation">
+            <summary>
+            Indicates whether this Recorder is set to capture and accumulate multiple sub-frames or not.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.Samples">
+            <summary>
+            The number of sub-frames to capture and accumulate on each final recorded frame.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.ShutterInterval">
+            <summary>
+            The portion of the interval between two subsequent frames in which the shutter actually opens and closes according to the specified shutter profile. The value 1.0f applies the shutter profile to the whole interval between the two frames, while the value 0.0f disables the shutter and the accumulation. Any value in between proportionally rescales the shutter profile and makes the shutter remain closed for the rest of the interval to the next frame.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.ShutterType">
+            <summary>
+            The type of response profile that simulates a physical motion of camera shutter: either a range or an animation curve.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.ShutterProfileCurve">
+            <summary>
+            Stores an animation curve to use as the shutter profile.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.ShutterFullyOpen">
+            <summary>
+            The time when the full open state of the shutter starts, normalized to the full shutter profile length. This automatically defines the slope of the linear opening from the profile start time.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.ShutterBeginsClosing">
+            <summary>
+            The time when the full open state of the shutter ends, normalized to the full shutter profile length. This automatically defines the slope of the linear closing to the profile end time.
+            </summary>
+        </member>
+        <member name="P:AccumulationSettings.UseSubPixelJitter">
+            <summary>
+            Indicates whether this Recorder is set to use subpixel jitter antialiasing or not.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.BaseRenderTextureInput">
+            <summary>
+            Base class for all Recorder inputs that capture images.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseRenderTextureInput.OutputRenderTexture">
+            <summary>
+            Enables asynchronous readback of GPU resources if the platform supports it.
+            Set this property to a valid instance and ensure that ReadbackTexture is not set.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseRenderTextureInput.ReadbackTexture">
+            <summary>
+            Indicates the synchronous GPU readback destination.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseRenderTextureInput.NeedToFlipVertically">
+            <summary>
+            Indicates whether or not the texture needs to be flipped vertically after being grabbed.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseRenderTextureInput.OutputWidth">
+            <summary>
+            Stores the output image width.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseRenderTextureInput.OutputHeight">
+            <summary>
+            Stores the output image height.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseRenderTextureInput.ReleaseBuffer">
+            <summary>
+            Releases all resources allocated by this class instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseRenderTextureInput.Dispose(System.Boolean)">
+            <summary>
+            Releases all resources allocated by this instance.
+            </summary>
+            <param name="disposing">If true, releases buffers allocated by this class as well.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.BaseTextureRecorder`1">
+            <summary>
+            Abstract base class for all Recorders that output images.
+            </summary>
+            <typeparam name="T">The class implementing the Recorder Settings.</typeparam>
+        </member>
+        <member name="F:UnityEditor.Recorder.BaseTextureRecorder`1.UseAsyncGPUReadback">
+            <summary>
+            Whether or not to use asynchronous GPU commands in order to get the texture for the recorder.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.BaseTextureRecorder`1.accumulationInitialized">
+            <summary>
+            Whether or not accumulation is requested and has been enabled.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.BaseTextureRecorder`1.ReadbackTextureFormat">
+            <summary>
+            Stores the format of the texture used for the readback.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.BeginRecording(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.RecordFrame(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.EndRecording(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.WriteFrame(UnityEngine.Rendering.AsyncGPUReadbackRequest)">
+            <summary>
+            Writes the frame from an asynchronous GPU read request.
+            </summary>
+            <param name="r">The asynchronous readback target.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.WriteFrame(UnityEngine.Texture2D)">
+            <summary>
+            Writes the frame from a Texture2D.
+            </summary>
+            <param name="t">The readback target.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.BaseTextureRecorder`1.DisposeEncoder">
+            <summary>
+            Releases the encoder resources.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.ImageInputSettings">
+            <inheritdoc />
+            <summary>
+            Optional base class for image related inputs.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.ImageInputSettings.OutputWidth">
+            <summary>
+            Stores the output image width.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.ImageInputSettings.OutputHeight">
+            <summary>
+            Stores the output image height.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.ImageInputSettings.SupportsTransparent">
+            <summary>
+            Indicates if derived classes support transparency.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.ImageInputSettings.RecordTransparency">
+            <summary>
+            This property indicates that the alpha channel should be grabbed from the GPU.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.StandardImageInputSettings">
+            <inheritdoc />
+            <summary>
+            This class regroups settings required to specify the size of an image input using a size and an aspect ratio.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.StandardImageInputSettings.OutputWidth">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.StandardImageInputSettings.OutputHeight">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.AnimationInput">
+            <summary>
+            Use this class to record animations in the scene in the Unity native format.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInput.GameObjectRecorder">
+            <summary>
+            Indicates the internal GameObject Recorder to use for the capture.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AnimationInput.BeginRecording(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AnimationInput.NewFrameReady(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.AnimationInputSettings">
+            <inheritdoc/>
+            <summary>
+            Use this class to manage all the information required to record an Animation from a given GameObject.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInputSettings.gameObject">
+            <summary>
+            Indicates the GameObject to record from.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInputSettings.Recursive">
+            <summary>
+            Use this property to record all the gameObject hierarchy (True) or not (False).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInputSettings.ClampedTangents">
+            <summary>
+            If true, the Recorder sets the generated animation key tangents to ClampedAuto, else to Auto (legacy). Clamped tangents are useful to prevent curve overshoots when the animation data is discontinuous.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInputSettings.SimplyCurves">
+            <summary>
+            Sets the keyframe reduction level to use to compress the recorded animation curve data.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.AnimationInputSettings.CurveSimplificationOptions">
+            <summary>
+            Available options for animation curve data compression.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.AnimationInputSettings.CurveSimplificationOptions.Lossy">
+            <summary>
+            Overall keyframe reduction. The Recorder removes animation keys based on a relative tolerance of 0.5 percent, to overall simplify the curve. This reduces the file size but directly affects the original curve accuracy.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.AnimationInputSettings.CurveSimplificationOptions.Lossless">
+            <summary>
+            Keyframe reduction of constant curves. The Recorder removes all unnecessary keys when the animation curve is a straight line, but keeps all recorded keys as long as the animation is not constant.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.AnimationInputSettings.CurveSimplificationOptions.Disabled">
+            <summary>
+            No compression. The Recorder saves all animation keys throughout the recording, even when the animation curve is a straight line. This might result in large files and slow playback.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AnimationInputSettings.AddComponentToRecord(System.Type)">
+            <summary>
+            Adds a Component to record from the GameObject.
+            </summary>
+            <param name="componentType">The type of the Component.</param>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AnimationInputSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AnimationInputSettings.DuplicateExposedReference">
+            <summary>
+            Duplicates the existing Scene binding key under a new unique key (useful when duplicating the Recorder input).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AnimationInputSettings.ClearExposedReference">
+            <summary>
+            Removes the binding value for the current key.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.AudioInput">
+            <summary>
+            Use this class to record audio from the built-in Unity audio system.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AudioInput.ChannelCount">
+            <summary>
+            The number of channels in the audio input.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AudioInput.SampleRate">
+            <summary>
+            The sampling rate, in hertz.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AudioInput.GetBufferSize">
+            <summary>
+            Get the size of the buffer of audio samples (including all channels).
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.AudioInput.GetBuffer(Unity.Collections.NativeArray{System.Single}@,System.Int32@)">
+            <summary>
+            Get the buffer of audio samples.
+            </summary>
+            <param name="userArray">A native array of float that is supplied and managed by the user.</param>
+            <param name="writtenSize">The number of values that were written to the supplied array.</param>
+            <exception cref="T:System.ArgumentException">Throws an exception if the passed array is too small to hold the buffer data.</exception>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AudioInput.AudioSettings">
+            <summary>
+            The settings of the audio input.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.AudioInputSettings">
+            <summary>
+            Use this class to manage all the information required to record audio from a Scene.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AudioInputSettings.PreserveAudio">
+            <summary>
+            Use this property to record the audio from the Scene (True) or not (False).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.AudioInputSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.CameraInput">
+            <summary>
+            Use this class to record from a Scene Camera.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInput.TargetCamera">
+            <summary>
+            Indicates the Camera to use to record the Scene.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInput.BeginRecording(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInput.NewFrameStarting(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInput.NewFrameReady(UnityEditor.Recorder.RecordingSession)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInput.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.CameraInputSettings">
+            <summary>
+            Use this class to manage all the information required to record from a Scene Camera.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInputSettings.Source">
+            <summary>
+            Indicates the Camera input type.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInputSettings.CameraTag">
+            <summary>
+            Indicates the GameObject tag of the Camera used for the capture.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInputSettings.FlipFinalOutput">
+            <summary>
+            Use this property if you want to apply a vertical flip to the final output.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInputSettings.CaptureUI">
+            <summary>
+            Use this property to include the UI GameObjects to the recording.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInputSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.CameraInputSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.CameraInputSettings.CheckForErrors(System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.Camera360InputSettings">
+            <summary>
+            A class that represents the settings of a 360 View.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.Source">
+            <summary>
+            The source camera for the 360 View.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.CameraTag">
+            <summary>
+            Indicates the GameObject tag of the Camera used for the capture.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.FlipFinalOutput">
+            <summary>
+            Use this property if you need to vertically flip the final output.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.RenderStereo">
+            <summary>
+            Use this property to render stereoscopic views in separate left and right outputs.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.StereoSeparation">
+            <summary>
+            Indicates the interocular angle (on the camera's Y axis) when using stereoscopic rendering.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.MapSize">
+            <summary>
+            Indicates the size of the cube map to use for the 360-degree environment projection.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.OutputWidth">
+            <summary>
+            The width in pixels of the 360 View image.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.Camera360InputSettings.OutputHeight">
+            <summary>
+            The height in pixels of the 360 View image.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.GameViewInputSettings">
+            <summary>
+            Use this class to record the frames rendered in the Game View window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.GameViewInputSettings.FlipFinalOutput">
+            <summary>
+            Use this property if you need to vertically flip the final output.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.GameViewInputSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.GameViewInputSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.GameViewInputSettings.SupportsTransparent">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.RenderTextureInputSettings">
+            <summary>
+            The settings of a Render Texture input.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureInputSettings.RenderTexture">
+            <summary>
+            Indicates the render texture used for the capture.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureInputSettings.FlipFinalOutput">
+            <summary>
+            Specifies whether to vertically flip the final output or not.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureInputSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureInputSettings.OutputWidth">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureInputSettings.OutputHeight">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.SuperSamplingCount">
+            <summary>
+            Sets which level of multisample anti-aliasing (MSAA) to use for the capture.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.SuperSamplingCount.X1">
+            <summary>
+            MSAA level 1
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.SuperSamplingCount.X2">
+            <summary>
+            MSAA level 2
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.SuperSamplingCount.X4">
+            <summary>
+            MSAA level 4
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.SuperSamplingCount.X8">
+            <summary>
+            MSAA level 8
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Input.SuperSamplingCount.X16">
+            <summary>
+            MSAA level 16
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Input.RenderTextureSamplerSettings">
+            <summary>
+            The settings of a Render Texture sampler.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.SuperSampling">
+            <summary>
+            Indicates the multisample anti-aliasing (MSAA) level used for this Recorder input.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.CameraTag">
+            <summary>
+            Stores the GameObject tag that defines the Camera used for the recording.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.ColorSpace">
+            <summary>
+            Indicates the color space used for this Recorder input.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.FlipFinalOutput">
+            <summary>
+            Use this property if you need to vertically flip the final output.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.InputType">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.CheckForWarnings(System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.OutputWidth">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.OutputHeight">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.RenderWidth">
+            <summary>
+            Use this property to specify a different render width from the output (overscan).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Input.RenderTextureSamplerSettings.RenderHeight">
+            <summary>
+            Use this property to specify a different render height from the output (overscan).
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.DefaultWildcard">
+            <summary>
+            Helper class for default Wildcards that you can use when constructing the output file name of a Recorder
+            (see <see cref="P:UnityEditor.Recorder.RecorderSettings.OutputFile"/>).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Recorder">
+            <summary>
+            The Recorder name.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Time">
+            <summary>
+            The time the recording session started (in the 00h00m format).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Take">
+            <summary>
+            The take number (which is incremented every time a new session is started).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Date">
+            <summary>
+            The date when the recording session started (in the yyyy-MM-dd format).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Project">
+            <summary>
+            The name of the current Unity Project.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Product">
+            <summary>
+            The product name from the build settings:
+            [PlayerSettings.productName](https://docs.unity3d.com/ScriptReference/PlayerSettings-productName.html).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Scene">
+            <summary>
+            The name of the current Unity Scene.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Resolution">
+            <summary>
+            The output resolution in pixels.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Frame">
+            <summary>
+            The current frame ID (a four-digit zero-padded number).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.DefaultWildcard.Extension">
+            <summary>
+            The file extension of the output format.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.DefaultWildcard.GeneratePattern(System.String)">
+            <summary>
+            Formats a tag to be recognized as a wildcard.
+            </summary>
+            <param name="tag">The name of the tag.</param>
+            <returns>The formatted tag.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.FileNameGenerator">
+            <summary>
+            A class that provides a way to generate names of output files, with support for wildcards.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FileNameGenerator.FileName">
+            <summary>
+            Stores the default set of tags that make up the output file name.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FileNameGenerator.Root">
+            <summary>
+            Indicates the root location the paths are relative to.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FileNameGenerator.Leaf">
+            <summary>
+            Indicates the filename part of the full path (without the extension).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FileNameGenerator.AbsolutePath">
+            <summary>
+            Indicates the absolute path of the folder to write file to.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FileNameGenerator.ForceAssetsFolder">
+            <summary>
+            Specifies whether the generated file is saved in the Assets folder or not.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.AddWildcard(System.String,System.Func{UnityEditor.Recorder.RecordingSession,System.String})">
+            <summary>
+            Adds a tag and the corresponding callback to resolve it.
+            </summary>
+            <param name="tag">The tag string.</param>
+            <param name="resolver">Callback invoked to replace the tag with custom content.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.BuildAbsolutePath(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Builds an absolute path from the list of configured output file tags replaced by the RecordingSession.
+            </summary>
+            <param name="session">The Recorder session used to replace the tags.</param>
+            <returns>An absolute path towards a file.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.CreateDirectory(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Creates the directory structure containing the output file from the list of tags and a RecordingSession.
+            </summary>
+            <param name="session">The Recorder session.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.SanitizeRecorderName(System.String)">
+            <summary>
+            Replaces any invalid path character by "_".
+            </summary>
+            <param name="recorderName">The Recorder name.</param>
+            <returns>The recorder name with "_" replacing occurrences of invalid characters</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.SanitizeFilename(System.String)">
+            <summary>
+            Replaces any occurrence of "/" or "\" in file name with "_".
+            </summary>
+            <param name="filename">The file name</param>
+            <returns>The file name with occurrences of "/" or "\" replaced with "_"</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.FileNameGenerator.SanitizePath(System.String)">
+            <summary>
+            Makes the output file path compliant with any OS (replacing any "\" by "/").
+            </summary>
+            <param name="fullPath"></param>
+            <returns>The full path with slashes "/" as file separators.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.GenericRecorder`1">
+            <summary>
+            Base class for all Recorders.
+            </summary>
+            <typeparam name="T">The Recorder settings type associated with the Recorder.</typeparam>
+        </member>
+        <member name="P:UnityEditor.Recorder.GenericRecorder`1.Settings">
+            <summary>
+            Indicates the Recorder settings for the current Recorder.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.HammersleySequence">
+            <summary>
+            A utility class to compute samples using the Hammersley sequence.
+            </summary>
+            <remarks>
+            See paper "Sampling with Hammersley and Halton Points"
+            http://www.cse.cuhk.edu.hk/~ttwong/papers/udpoint/udpoint.pdf
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Recorder.HammersleySequence.GetPoints(UnityEngine.Vector2[])">
+            <summary>
+            Evaluates Hammersley points on the unit square.
+            </summary>
+            <param name="result">Array holding the resulting points.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.UnityHelpers">
+            <summary>
+            An ad-hoc collection of helpers for the Recorders.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.Destroy(UnityEngine.Object,System.Boolean)">
+            <summary>
+            Allows destroying Unity.Objects.
+            </summary>
+            <param name="obj"></param>
+            <param name="allowDestroyingAssets"></param>
+        </member>
+        <member name="P:UnityEditor.Recorder.UnityHelpers.PackageDescription">
+            <summary>
+            A label including the version of the package, for use in encoder metadata tags for instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.RGBA32_to_RGB24(UnityEngine.Texture2D)">
+            <summary>
+            Convert an RGBA32 texture to an RGB24 one.
+            </summary>
+            <param name="tex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.LoadLocalPackageAsset``1(System.String,System.Boolean)">
+            <summary>
+            Load an asset from the current package's Editor/Assets folder.
+            </summary>
+            <param name="relativeFilePathWithExtension">The relative filename inside the Editor/Assets folder, without
+            leading slash.</param>
+            <param name="logError">Set this flag to true if you need to log errors when the Recorder cannot find the asset.</param>
+            <typeparam name="T">The type of asset to load</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.UsingHDRP">
+            <summary>
+            Are we currently using the High Definition Render Pipeline.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.UsingURP">
+            <summary>
+            Are we currently using the Universal Render Pipeline.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.UsingLegacyRP">
+            <summary>
+            Are we currently using the Legacy Render Pipeline.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.CaptureAccumulation(UnityEditor.Recorder.RecorderSettings)">
+            <summary>
+            Are we currently capturing SubFrames.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetColorSpaceType(UnityEngine.Experimental.Rendering.GraphicsFormat)">
+            <summary>
+            Returns the color space of the specified graphics format.
+            </summary>
+            <param name="format">The graphics format to probe.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetColorSpaceType(UnityEngine.ColorSpace)">
+            <summary>
+            Returns the Recorder-specific color space matching the Unity color space.
+            </summary>
+            <param name="space">The Unity color space to probe</param>
+            <returns></returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Throws an exception if the enum value is not as expected.</exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:UnityEditor.Recorder.UnityHelpers.NeedToActuallyFlip(System.Boolean,UnityEditor.Recorder.BaseRenderTextureInput,System.Boolean)" -->
+        <member name="M:UnityEditor.Recorder.UnityHelpers.IsNumAudioChannelsSupported">
+            <summary>
+            Whether the current number of audio channels is supported by the recorder.
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetNumAudioChannels">
+            <summary>
+            Returns the number of audio channels of the project.
+            </summary>
+            <returns>The number of audio channels of the project.</returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Thrown if the speaker mode is not supported.</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetNumAudioChannels(UnityEngine.AudioSpeakerMode)">
+            <summary>
+            Returns the number of audio channels for a given speaker mode.
+            </summary>
+            <returns>The number of audio channels of the project.</returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Thrown if the speaker mode is not supported</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetSpeakerModeName(UnityEngine.AudioSpeakerMode)">
+            <summary>
+            Returns the name of a given speaker mode. If no speaker mode is provided, the project's speaker mode
+            is probed.
+            </summary>
+            <returns>The number of audio channels of the project.</returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Thrown if the speaker mode is not supported</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.GetUnsupportedSpeakerModeErrorMessage(System.String,UnityEngine.AudioSpeakerMode[])">
+             <summary>
+             Returns error message that is raised when the current default speaker mode is not supported depending on
+             current encoder and current speaker mode.
+             </summary>
+            <param name="encoderName">Current encoder.</param>
+             ///<param name="supportedSpeakerModes">Speaker modes supported by the encoder.</param>
+             <returns>Error message.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.UnityHelpers.AudioSpeakerModesToString(UnityEngine.AudioSpeakerMode[])">
+            <summary>
+            Returns an array of AudioSpeakerModes in a human readable string (ex: "speakerMode1, speakerMode2 and speakerMode3")
+            </summary>
+            ///<param name="speakerModes">An array of speaker modes</param>
+            <returns>SpeakerModes separated by commas and 'and' for the last one.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageInputSelector">
+            <summary>
+            This class is a specialization of InputSettingsSelector for image input types.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageInputSelector.gameViewInputSettings">
+            <summary>
+            The settings when the input is set to Game View.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageInputSelector.cameraInputSettings">
+            <summary>
+            The settings when the input is set to Targeted Camera.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageInputSelector.camera360InputSettings">
+            <summary>
+            The settings when the input is set to 360 View.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageInputSelector.renderTextureInputSettings">
+            <summary>
+            The settings when the input is set to Render Texture Asset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageInputSelector.renderTextureSamplerSettings">
+            <summary>
+            The settings when the input is set to Texture Sampling.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageInputSelector.ImageInputSettings">
+            <summary>
+            Use this property to set and retrieve the input settings of the currently selected image.
+            Supported input types are: CameraInputSettings, GameViewInputSettings, Camera360InputSettings, RenderTextureInputSettings, RenderTextureSamplerSettings.
+            </summary>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderInputSettings">
+            <summary>
+            Base class that represents a RecorderSetting Input that can be recorded from. (like a Camera, a RenderTexture...)
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.InputSettingsSelector">
+            <summary>
+            Use this class to specify a particular input type (it allows for each recorder to support only a subset of the input settings).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.InputSettingsSelector.Selected">
+            <summary>
+            The currently selected RecorderInputSettings.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.InputSettingsSelector.#ctor">
+            <summary>
+            The default constructor.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.OutputPath">
+            <summary>
+            Class that allows building file paths relative.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.OutputPath.Root">
+            <summary>
+            Options specifying which root location the output path is relative to (or if the path is absolute).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.Project">
+            <summary>
+            Relative path to Project file (parent of Assets).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.AssetsFolder">
+            <summary>
+            Relative path to Assets.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.StreamingAssets">
+            <summary>
+            Relative path to StreamingAssets.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.PersistentData">
+            <summary>
+            Relative path to PersistentData.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.TemporaryCache">
+            <summary>
+            Relative path to Temporary Cache.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.OutputPath.Root.Absolute">
+            <summary>
+            Absolute path.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Recorder">
+            <summary>
+            Base class for all Recorders. To create a new Recorder, extend <see cref="T:UnityEditor.Recorder.GenericRecorder`1"/>.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Recorder.RecordedFramesCount">
+            <summary>
+            Indicates the number of frames of the current recording session.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Recorder.m_Inputs">
+            <summary>
+            The list of inputs to the Recorder, representing the sources of the captured data.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.BeginRecording(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Starts a new recording session. Callback is invoked once when the recording session starts.
+            </summary>
+            <param name="session">The newly created recording session.</param>
+            <returns>True if recording can start, False otherwise.</returns>
+            <exception cref="T:System.Exception">Throws if there is already a recording session running.</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.EndRecording(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Ends the current recording session. Callback is invoked when the recording session ends.
+            </summary>
+            <param name="session">The current recording session.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.RecordFrame(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Records a single frame. Callback is invoked for every frame during the recording session.
+            </summary>
+            <param name="ctx">The current recording session.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.PrepareNewFrame(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Prepares a frame before recording it. Callback is invoked for every frame during the recording session, before RecordFrame.
+            </summary>
+            <param name="ctx">The current recording session.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.SkipFrame(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Tests if a frame should be skipped before trying to record it. Callback is invoked for every frame during the recording session.
+            </summary>
+            <remarks>
+            If this function returns True, RecordFrame will not be invoked.
+            </remarks>
+            <param name="ctx">The current recording session.</param>
+            <returns>True if the frame should be skipped, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.SkipSubFrame(UnityEditor.Recorder.RecordingSession)">
+            <summary>
+            Tests if a sub frame should be skipped before trying to record it. Callback is invoked for every frame during the recording session.
+            </summary>
+            <remarks>
+            If this function returns True, RecordFrame will not be invoked.
+            </remarks>
+            <param name="ctx">The current recording session.</param>
+            <returns>True if the sub frame should be skipped, False otherwise.</returns>
+        </member>
+        <member name="P:UnityEditor.Recorder.Recorder.Recording">
+            <summary>
+            Tests if there is a recording session currently running.
+            </summary>
+            <returns>True if a recording session is currently active, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.DisableAsyncShaderCompil">
+            <summary>
+            Disable asynchronous shader compilation and save the status.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.RestoreAsynchronousShaderCompilation">
+            <summary>
+            If we have not already restored the setting of asynchronous shader compilation, restore it.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Recorder.CleanupFailedRecording">
+            <summary>
+            If a recording fails, clean up after it.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderController">
+            <summary>
+            Main class to use the Recorder framework via script.
+            Controls recording states like start and stop.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderController.Settings">
+            <summary>
+            Current settings used by this RecorderControler.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderController.#ctor(UnityEditor.Recorder.RecorderControllerSettings)">
+            <summary>
+            The constructor of the RecorderController.
+            </summary>
+            <param name="settings">The settings to be used by this RecorderController.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderController.PrepareRecording">
+            <summary>
+            Prepares the recording context.
+            To start recording once you've called this method, you must call <see cref="M:UnityEditor.Recorder.RecorderController.StartRecording"/>.
+            </summary>
+            <remarks>
+            Sets up the internal data for the recording session and pauses the simulation to ensure a proper synchronization between the Recorder and the Unity Editor.
+            </remarks>
+            <exception cref="T:System.NullReferenceException">When the settings are null.</exception>
+            <exception cref="T:System.InvalidOperationException">When there are multiple recorders and accumulation is enabled for one of them.</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderController.StartRecording">
+            <summary>
+            Starts the recording (works only in Play mode).
+            To use this method, you must first have called <see cref="M:UnityEditor.Recorder.RecorderController.PrepareRecording"/> to set up the recording context.
+            Also ensure that you've finished loading any additional Scene data required before you start recording.
+            </summary>
+            <returns>false if an error occured. The console usually contains logs about the errors.</returns>
+            <exception cref="T:System.Exception">If not in Playmode.</exception>
+            <exception cref="T:System.NullReferenceException">If settings is null.</exception>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderController.IsRecording">
+            <summary>
+            Use this method to know if all recorders are done recording.
+            A recording stops:
+            1. The settings is set to a time (or frame) interval and the end time (or last frame) was reached.
+            2. Calling the StopRecording method.
+            3. Exiting Playmode.
+            </summary>
+            <returns>True if at least one recording is still active. false otherwise.</returns>
+            <seealso cref="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToSingleFrame(System.Int32)"/>
+            <seealso cref="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToFrameInterval(System.Int32,System.Int32)"/>
+            <seealso cref="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToTimeInterval(System.Single,System.Single)"/>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderController.StopRecording">
+            <summary>
+            Stops all active recordings.
+            Most recordings will create the recorded file once stopped.
+            If the settings is using Manual recording mode. then the only way to stop recording is by calling this method or by exiting Playmode.
+            </summary>
+            <seealso cref="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToManual"/>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderControllerSettings">
+            <summary>
+            Use this class to manage the recording settings (frame rate, frame range, list of Recorder Settings) for the <see cref="T:UnityEditor.Recorder.RecorderController"/>.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderControllerSettings.ExitPlayMode">
+            <summary>
+            Instructs the recorder to exit Play Mode once the recording has finished.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderControllerSettings.FrameRatePlayback">
+            <summary>
+            Indicates the type of frame rate (constant or variable) for the current list of Recorders.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderControllerSettings.FrameRate">
+            <summary>
+            Allows setting and retrieving the frame rate for the current list of Recorders.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToManual">
+            <summary>
+            Sets the Recorders to Manual mode.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToSingleFrame(System.Int32)">
+            <summary>
+            Sets the Recorders to Single Frame recording mode.
+            </summary>
+            <param name="frameNumber">The frame to be recorded.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToFrameInterval(System.Int32,System.Int32)">
+            <summary>
+            Sets the Recorders to Frame Interval mode and defines the Start and End frame of the interval to record.
+            </summary>
+            <param name="startFrame">Start frame.</param>
+            <param name="endFrame">End frame.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.SetRecordModeToTimeInterval(System.Single,System.Single)">
+            <summary>
+            Sets the Recorders to Time Interval mode and defines the Start and End times of the interval to record.
+            </summary>
+            <param name="startTime">The start time, in seconds.</param>
+            <param name="endTime">The end time, in seconds.</param>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderControllerSettings.CapFrameRate">
+            <summary>
+            Indicates if the Recorders frame rate should cap the Unity rendering frame rate. When enabled, Unity is prevented from rendering faster than the set FrameRate.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.LoadOrCreate(System.String)">
+            <summary>
+            Loads or creates Recorder Settings to the specified file path.
+            </summary>
+            <param name="path">The path to load or create Recorder Settings.</param>
+            <returns>The loaded or created Recorder Settings.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.GetGlobalSettings">
+            <summary>
+            Get the global controller settings.
+            </summary>
+            <returns>The global RecorderControllerSettings</returns>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderControllerSettings.RecorderSettings">
+            <summary>
+            Stores the collection of Recorder Settings instances.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.AddRecorderSettings(UnityEditor.Recorder.RecorderSettings)">
+            <summary>
+            Adds a new instance of Recorder Settings to the current collection.
+            </summary>
+            <param name="recorder">The Recorder Settings instance to add.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.RemoveRecorder(UnityEditor.Recorder.RecorderSettings)">
+            <summary>
+            Removes an instance of Recorder Settings from the current collection.
+            </summary>
+            <param name="recorder">The Recorder settings instance to be removed.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.Save">
+            <summary>
+            Saves the current list of Recorder Settings instances to disk.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.GetNumberOfActiveSubFrameRecorders">
+            <summary>
+            Gets the number of currently active recorders that capture accumulation.
+            </summary>
+            <returns>The number of recorders that are currently capturing accumulation.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettings.InvalidContextBecauseOfAccumulation">
+            <summary>
+            Whether the current context should prevent recording due to invalid accumulation settings or not.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderControllerSettingsPreset">
+            <summary>
+            Class that models a Recorder List (a stack of preset Recorder Settings instances) that you can save and load for reuse into a Recorder Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettingsPreset.SaveAtPath(UnityEditor.Recorder.RecorderControllerSettings,System.String)">
+            <summary>
+            Saves the specified Recorder List to a file on disk. Note that this method doesn't save Scene references (such as a GameObject reference in Animation Recorder Settings).
+            </summary>
+            <param name="model">The Recorder List to save.</param>
+            <param name="path">The path on disk where to save the Recorder List. You must specify a path relative to the project.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderControllerSettingsPreset.ApplyTo(UnityEditor.Recorder.RecorderControllerSettings)">
+            <summary>
+            Applies the current Recorder List to the specified RecorderControllerSettings instance.
+            </summary>
+            <param name="prefs">The RecorderControllerSettings instance to apply the Recorder List to.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderEditor">
+            <summary>
+            The user interface to set up a Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.OnEnable">
+            <summary>
+            Initializes the attributes and styling of the editor based on the serialized data, when the object becomes active.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.DrawSeparator">
+            <summary>
+            Draws a delimiter between different GUI elements.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.DrawHeaderFoldout(UnityEngine.GUIContent,UnityEditor.Recorder.RecorderEditor.SavedBool,System.Boolean)">
+            <summary>Draws a foldout header.</summary>
+            <param name="title"> The title of the header </param>
+            <param name="state"> The state of the header </param>
+            <param name="isBoxed"> Specifies whether to contain the header in a box style [optional]. </param>
+            <returns>return the state of the foldout header</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.OnInspectorGUI">
+            <summary>
+            This is the main entry point for drawing the Recorder editor in the inspector.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.OnValidateSettingsGUI">
+            <summary>
+            Validates the settings of the Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.NameAndPathGUI">
+            <summary>
+            Displays the information related to the output file(s).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.ImageRenderOptionsGUI">
+            <summary>
+            Displays the information related to the source of the capture and its rendering options.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.ExtraOptionsGUI">
+            <summary>
+            Displays extra options below the capture information, under certain conditions.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.FileTypeAndFormatGUI">
+            <summary>
+            Displays options related to the output format of the recording.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.OnEncodingGui">
+            <summary>
+            Displays properties related to the encoding of the file.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.AOVGUI">
+            <summary>
+            Displays the properties of the AOV Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderEditor.AccumulationGUI">
+            <summary>
+            Displays the information related to the capture of multiframe accumulation.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderInput">
+            <summary>
+            This class represents the different types of input that can receive frame data from a <see cref="T:UnityEditor.Recorder.RecordingSession"/> object.
+            </summary>
+            <seealso cref="T:UnityEditor.Recorder.RecorderInputSettings"/>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderInput.settings">
+            <summary>
+            The settings of the Recorder input data.
+            These can be of type <see cref="T:UnityEditor.Recorder.Input.AnimationInputSettings"/>, <see cref="T:UnityEditor.Recorder.Input.ImageInputSettings"/>,
+            or <see cref="T:UnityEditor.Recorder.Input.AudioInputSettings"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderInput.Finalize">
+            <summary>
+            The finalizer of the class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderInput.Dispose">
+            <summary>
+            Cleans up the Recorder input's resources.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderInput.Dispose(System.Boolean)">
+            <summary>
+            Cleans up the Recorder input's resources.
+            </summary>
+            <param name="disposing">This flag is True when the method is being called by a user's <see cref="M:UnityEditor.Recorder.RecorderInput.Dispose"/>
+            method, otherwise it means that it has been called by a finalizer and you should only dispose of unmanaged
+            resources.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderOptions">
+            <summary>
+            Options class for the Recorder
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderOptions.VerboseMode">
+            <summary>
+            If true, the recorder will log additional recording steps into the Console.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderOptions.ShowRecorderGameObject">
+            <summary>
+            The recorder uses a "Unity-RecorderSessions" GameObject to store Scene references and manage recording sessions.
+            If true, this GameObject will be visible in the Scene Hierarchy.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderPreferencesSettings.VerboseMode">
+            <summary>
+            Use this property to log extended information about recordings in the Console window, for troubleshooting purposes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderPreferencesSettings.ShowGO">
+            <summary>
+            Use this property to show the Recorder GameObject for Scene hooks in the Hierarchy during the recording, for troubleshooting purposes.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderPreferencesSettings.Reset">
+            <summary>
+            Resets the settings to the default values.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.SettingAsset`1">
+            <summary>
+            A class used to define a singleton instance that is stored as an asset.
+            </summary>
+            <remarks>
+            Unlike ScriptableSingleton, this class can be used outside of the editor.
+            </remarks>
+            <typeparam name="T">The type of the setting asset.</typeparam>
+        </member>
+        <member name="P:UnityEditor.Recorder.SettingAsset`1.Instance">
+            <summary>
+            The asset instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.SettingAsset`1.#ctor">
+            <summary>
+            Creates a new <see cref="T:UnityEditor.Recorder.SettingAsset`1"/> instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.SettingAsset`1.Save">
+            <summary>
+            Serializes the asset to disk.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.SettingAsset`1.GetFilePath">
+            <summary>
+            Gets the file path of the asset relative to the project root folder.
+            </summary>
+            <returns>The file path of the asset.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.SettingFilePathAttribute">
+            <summary>
+            An attribute that specifies a file location relative to the Project folder or Unity's preferences folder.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.SettingFilePathAttribute.Location">
+            <summary>
+            Specifies the folder location that Unity uses together with the relative path provided in the <see cref="T:UnityEditor.Recorder.SettingFilePathAttribute"/> constructor.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.SettingFilePathAttribute.Location.PreferencesFolder">
+            <summary>
+            Use this location to save a file relative to the preferences folder. Useful for per-user files that are across all projects.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.SettingFilePathAttribute.Location.ProjectFolder">
+            <summary>
+            Use this location to save a file relative to the Project Folder. Useful for per-project files (not shared between projects).
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.AnimationRecorderSettings">
+            <summary>
+            Class describing the settings for Animation Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AnimationRecorderSettings.AnimationInputSettings">
+            <summary>
+            Stores the reference to the current Animation Recorder input settings.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.AnimationRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AnimationRecorderSettings.IsPlatformSupported">
+            <inheritdoc/>
+            <remarks>
+            Animation Recorder currently supports the following platforms: LinuxEditor, OSXEditor, WindowsEditor.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Recorder.AnimationRecorderSettings.InputsSettings">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.AnimationRecorderSettings.Extension">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.AnimationRecorderSettings.GetErrors(System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.AnimationRecorderSettings.OnAfterDuplicate">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.AOV.AOVType">
+            <summary>
+            Available options AOV Types.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Beauty">
+            <summary>
+            Select the Beauty AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Albedo">
+            <summary>
+            Select the Albedo AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Normal">
+            <summary>
+            Select the Normal AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Smoothness">
+            <summary>
+            Select the Smootness AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.AmbientOcclusion">
+            <summary>
+            Select the Ambient Occlusion AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Metal">
+            <summary>
+            Select the Metal AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Specular">
+            <summary>
+            Select the Specular AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Alpha">
+            <summary>
+            Select the Alpha AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.DiffuseLighting">
+            <summary>
+            Select the Diffuse Lighting AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.SpecularLighting">
+            <summary>
+            Select the Specular Lighting AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.DirectDiffuse">
+            <summary>
+            Select the Direct Diffuse Lighting Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.DirectSpecular">
+            <summary>
+            Select the Direct Specular Lighting Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.IndirectDiffuse">
+            <summary>
+            Select the Indirect Diffuse Lighting Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Reflection">
+            <summary>
+            Select the Reflection Lighting Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Refraction">
+            <summary>
+            Select the Refraction Lighting Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Emissive">
+            <summary>
+            Select the Emissive Only AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.MotionVectors">
+            <summary>
+            Select the Motion Vector AOV.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.AOV.AOVType.Depth">
+            <summary>
+            Select the Depth AOV.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.AOV.AOVRecorderSettings">
+            <summary>
+            A class that represents the settings of an AOV Sequence Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.AOV.AOVRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.AOVSelection">
+            <summary>
+            Indicates the selected AOV to render.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.OutputColorSpace">
+            <summary>
+            Stores the color space to use to encode the output image files.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.EXRCompression">
+            <summary>
+            Stores the data compression method to use to encode image files in the EXR format.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.JpegQuality">
+            <summary>
+            The JPEG encoding quality level. Range is 1 to 100. Default value is 75.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.OutputFormat">
+            <summary>
+            Stores the output image format currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.CaptureHDR">
+            <summary>
+            Use this property to capture the frames in HDR (if the setup supports it).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.imageInputSettings">
+            <summary>
+            The settings of the input image.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.AOVRecorderSettings.InputsSettings">
+            <summary>
+            The list of settings of the Recorder Inputs.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.AOV.Input.AOVCameraInputSettings">
+            <summary>
+            This class contains the information for an AOV.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AOV.Input.AOVCameraInputSettings.InputType">
+            <summary>
+            Input type for an AOV.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.WAVEncoder">
+            <summary>
+            An encoder for the WAV format.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.WAVEncoder.#ctor(System.String)">
+            <summary>
+            The constructor of a WAV encoder.
+            </summary>
+            <param name="filename">The path of the WAV file to create.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.WAVEncoder.Stop">
+            <summary>
+            Stop the encoder and close the file.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.WAVEncoder.AddSamples(Unity.Collections.NativeArray{System.Single})">
+            <summary>
+            Add audio samples to the WAV file.
+            </summary>
+            <param name="data">The buffer of audio samples to add.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.WAVEncoder.Dispose">
+            <summary>
+            Stop the encoder.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.AudioRecorderSettings">
+            <summary>
+            A class that represents the settings of an Audio Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.AudioRecorderSettings.InputsSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.AudioRecorderSettings.GetErrors(System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.AudioRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.GIFRecorderSettings">
+            <summary>
+            Deprecated GIF Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.GIFRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.GIFRecorderSettings.Extension">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageRecorderSettings">
+            <summary>
+            A class that represents the settings of an Image Recorder.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageRecorderSettings.ImageRecorderOutputFormat">
+            <summary>
+            Available options for the output image format used by Image Sequence Recorder.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.ImageRecorderOutputFormat.PNG">
+            <summary>
+            Output the recording in PNG format.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.ImageRecorderOutputFormat.JPEG">
+            <summary>
+            Output the recording in JPEG format.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.ImageRecorderOutputFormat.EXR">
+            <summary>
+            Output the recording in EXR format.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageRecorderSettings.EXRCompressionType">
+            <summary>
+            Compression type for EXR files.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.EXRCompressionType.None">
+            <summary>
+            No compression.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.EXRCompressionType.RLE">
+            <summary>
+            Run-length encoding compression.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.EXRCompressionType.Zip">
+            <summary>
+            Zip compression.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.EXRCompressionType.PIZ">
+            <summary>
+            Wavelet compression.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageRecorderSettings.ColorSpaceType">
+            <summary>
+            Color Space (gamma curve, gamut) to use in the output images.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.ColorSpaceType.sRGB_sRGB">
+            <summary>
+            The sRGB color space.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageRecorderSettings.ColorSpaceType.Unclamped_linear_sRGB">
+            <summary>
+            The linear sRGB color space.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.OutputFormat">
+            <summary>
+            Stores the output image format currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.CaptureAlpha">
+            <summary>
+            Use this property to capture the alpha channel (True) or not (False) in the output.
+            </summary>
+            <remarks>
+            Alpha channel is captured only if the output image format supports it.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.JpegQuality">
+            <summary>
+            The JPEG encoding quality level. Range is 1 to 100. Default value is 75.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.CaptureHDR">
+            <summary>
+            Use this property to capture the frames in HDR (if the setup supports it).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.ImageRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.EXRCompression">
+            <summary>
+            Stores the data compression method to use to encode image files in the EXR format.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.OutputColorSpace">
+            <summary>
+            Stores the color space to use to encode the output image files.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.imageInputSettings">
+            <summary>
+            The settings of the input image.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.InputsSettings">
+            <summary>
+            The list of settings of the Recorder Inputs.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.ImageRecorderSettings.AccumulationSettings">
+            <summary>
+            Stores the AccumulationSettings properties
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.ImageRecorderSettings.GetAccumulationSettings">
+            <summary>
+            Use this method to get all the AccumulationSettings properties.
+            </summary>
+            <returns>AccumulationSettings</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.ImageRecorderSettings.IsAccumulationSupported">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.CoreEncoder">
+            <summary>
+            The Core Media Encoder
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.CoreEncoderSettings">
+            <summary>
+            The settings of the Core Encoder.
+            </summary>
+            <remarks>
+            This class is sealed because users shouldn't inherit from it. Instead, create a new encoder along with its settings class.
+            </remarks>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.CoreEncoderSettings.OutputCodec">
+            <summary>
+            The choice of encoder and container for the output file.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.OutputCodec.MP4">
+            <summary>
+            The H.264 codec in an MPEG-4 container.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.OutputCodec.WEBM">
+            <summary>
+            The VP8 codec in a WebM container.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.CoreEncoderSettings.VideoEncodingQuality">
+            <summary>
+            Available options for the encoding quality of videos.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.VideoEncodingQuality.Low">
+            <summary>
+            Low value, safe for slower internet connections or clips where visual quality is not critical.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.VideoEncodingQuality.Medium">
+            <summary>
+            Typical bit rate supported by internet connections.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.VideoEncodingQuality.High">
+            <summary>
+            High value, possibly exceeding typical internet connection capabilities.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.VideoEncodingQuality.Custom">
+            <summary>
+            Advanced settings for encoding video with custom quality.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.CoreEncoderSettings.H264EncodingProfile">
+            <summary>
+            The available encoding profiles for the H.264 codec. Each profile defines a set of capabilities and constraints
+            on which decoders rely.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.H264EncodingProfile.Baseline">
+            <summary>
+            Encode video with the baseline profile.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.H264EncodingProfile.Main">
+            <summary>
+            Encode video using the main profile.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.CoreEncoderSettings.H264EncodingProfile.High">
+            <summary>
+            Encode video with the high profile.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.TargetBitRate">
+            <summary>
+            The target bitrate, in Mbps, for the H.264 codec.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.TargetBitRateBitsPerSecond">
+            <summary>
+            The target bitrate, in bps, for the H.264 codec.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.TargetBitRateKiloBitsPerSecond">
+            <summary>
+            The target bitrate, in kbbps, for the VP8 codec.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.GopSize">
+            <summary>
+            The interval in frames between two full images (I-frames), known as the Group of Pictures (GOP) size for the H.264 codec.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.NumConsecutiveBFrames">
+            <summary>
+            The number of consecutive bidirectional predicted pictures (B-frames) for the H.264 codec.
+            <remarks>
+            The maximum supported value is 2.
+            </remarks>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.EncodingProfile">
+            <summary>
+            The choice of encoding profile for the H.264 codec. Each profile defines a set of capabilities and constraints
+            on which decoders rely.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.KeyframeDistance">
+            <summary>
+            The maximum interval in frames between two full images (I-frames), for the VP8 codec.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.Codec">
+            <summary>
+            The selected codec of the encoder instance.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAlpha">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAudio">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.EncodingQuality">
+            <summary>
+            Indicates the encoding quality to use for the encoding.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CoordinateConvention">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#GetTextureFormat(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#ValidateRecording(UnityEditor.Recorder.Encoder.RecordingContext,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.IsCodecSupportedOnThisPlatform(UnityEditor.Recorder.Encoder.CoreEncoderSettings.OutputCodec)">
+            <summary>
+            Indicates whether the specified codec is supported or not on this platform.
+            </summary>
+            <param name="toCheck">The codec to check.</param>
+            <returns>True if the codec is supported on this platform, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.SupportsCurrentPlatform">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.System#IEquatable{UnityEditor#Recorder#Encoder#CoreEncoderSettings}#Equals(UnityEditor.Recorder.Encoder.CoreEncoderSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.Equals(System.Object)">
+            <summary>
+            Compares the current object with another one.
+            </summary>
+            <param name="obj">The object to compare with the current one.</param>
+            <returns>True if the two objects are equal, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.CoreEncoderSettings.GetHashCode">
+            <summary>
+            Returns a hash code of all serialized fields.
+            </summary>
+            <returns>The hash code.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.EncoderSettingsAttribute">
+            <summary>
+            An attribute that, when placed on an IEncoderSettings type, can associate with an IEncoder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.EncoderSettingsAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor for the attribute.
+            </summary>
+            <param name="encoderType">The IEncoder type.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.GifEncoderSettings">
+            <summary>
+            The settings of the GIF Encoder.
+            </summary>
+            <remarks>
+            This class is sealed because users shouldn't inherit from it. Instead, create a new encoder along with its settings class.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAlpha">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAudio">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.GifEncoderSettings.Loop">
+            <summary>
+            Indicates whether the generated file should loop the frame sequence indefinitely or not.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.GifEncoderSettings.Quality">
+            <summary>
+            The quality of the GIF.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#GetTextureFormat(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#ValidateRecording(UnityEditor.Recorder.Encoder.RecordingContext,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#SupportsCurrentPlatform">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.System#IEquatable{UnityEditor#Recorder#Encoder#GifEncoderSettings}#Equals(UnityEditor.Recorder.Encoder.GifEncoderSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.Equals(System.Object)">
+            <summary>
+            Compares the current object with another one.
+            </summary>
+            <param name="obj">The object to compare with the current one.</param>
+            <returns>True if the two objects are equal, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.GifEncoderSettings.GetHashCode">
+            <summary>
+            Returns a hash code of all serialized fields.
+            </summary>
+            <returns>The hash code.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.IEncoder">
+            <summary>
+            Interface to implement to create an encoder.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.IEncoder.VideoInputPath">
+            <summary>
+            Defined the kind of image buffer, the Encoder can encoder
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.IEncoder.VideoInputPath.GPUBuffer">
+            <summary>
+            Use the GPU Buffer path
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.IEncoder.VideoInputPath.CPUBuffer">
+            <summary>
+            Use the CPU Buffer path.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.IEncoder.GetVideoInputPath">
+            <summary>
+            Returns the input video path for the encoder. Based on the returned value, the appropriate addVideoFrame function will be invoked.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoder.OpenStream(UnityEditor.Recorder.Encoder.IEncoderSettings,UnityEditor.Recorder.Encoder.RecordingContext)">
+            <summary>
+            Opens the stream to add the audio and video frames to.
+            </summary>
+            <param name="settings">The settings of this encoder.</param>
+            <param name="ctx">The context of the Recorder that drives this encoder.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoder.CloseStream">
+            <summary>
+            Closes the stream of audio and video frames.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoder.AddVideoFrame(UnityEngine.RenderTexture,UnityEditor.Media.MediaTime)">
+            <summary>
+            Encodes a Texture and adds it to the video stream.
+            </summary>
+            <param name="frame">The texture to encode.</param>
+            <param name="time">The timestamp of the current frame.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoder.AddVideoFrame(Unity.Collections.NativeArray{System.Byte},UnityEditor.Media.MediaTime)">
+            <summary>
+            Encodes an array of bytes and adds it to the video stream.
+            </summary>
+            <remarks>
+            The encoder interprets the format of the array based on the texture format in IEncoderSettings passed to the OpenStream method.
+            </remarks>
+            <param name="bytes">The array of bytes to encode.</param>
+            <param name="time">The timestamp of the current frame.</param>
+            <seealso cref="M:UnityEditor.Recorder.Encoder.IEncoder.OpenStream(UnityEditor.Recorder.Encoder.IEncoderSettings,UnityEditor.Recorder.Encoder.RecordingContext)"/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoder.AddAudioFrame(Unity.Collections.NativeArray{System.Single})">
+            <summary>
+            Encodes an array of audio values and adds it to the audio stream.
+            </summary>
+            <remarks>
+            The number of channels is determined by the number of speakers in the scene.
+            </remarks>
+            <param name="bytes">The array of bytes to encode.</param>
+            <seealso cref="T:UnityEditor.Recorder.Input.AudioInput"/>
+            <seealso cref="P:UnityEngine.AudioSettings.speakerMode"/>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.EncoderCoordinateConvention">
+            <summary>
+            The convention of the coordinate system for an encoder, to ensure that the images supplied to the encoder are flipped if needed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.EncoderCoordinateConvention.OriginIsTopLeft">
+            <summary>
+            The origin is in the top left corner of each frame.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.EncoderCoordinateConvention.OriginIsBottomLeft">
+            <summary>
+            The origin is in the bottom left corner of each frame.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.IEncoderSettings">
+            <summary>
+            Interface to implement to create settings for an encoder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.IEncoderSettings.Extension">
+            <summary>
+            Returns the extension of the files to encode, in lowercase, without leading dot.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.IEncoderSettings.CoordinateConvention">
+            <summary>
+            Indicates where the first pixel of the image will be in the frame.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.IEncoderSettings.CanCaptureAlpha">
+            <summary>
+            Indicates whether this encoder instance can support an alpha channel or not.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.IEncoderSettings.CanCaptureAudio">
+            <summary>
+            Indicates whether this encoder instance can support an audio signal or not.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoderSettings.GetTextureFormat(System.Boolean)">
+            <summary>
+            Gets the texture format this encoder requires from the Recorder.
+            </summary>
+            <param name="inputContainsAlpha">Whether the encoder's input contains an alpha channel or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoderSettings.ValidateRecording(UnityEditor.Recorder.Encoder.RecordingContext,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Populates the lists of errors and warnings for a given encoder context.
+            </summary>
+            <param name="ctx">The context of the current recording.</param>
+            <param name="errors">The list of errors to append to.</param>
+            <param name="warnings">The list of warnings to append to.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoderSettings.RequiresEvenResolution">
+            <summary>
+            Indicates whether this encoder requires the width and height of the image to both be even numbers or not.
+            </summary>
+            <returns>True if this encoder requires even dimensions, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.IEncoderSettings.SupportsCurrentPlatform">
+            <summary>
+            Indicates whether the encoder is supported on the current operating system or not.
+            </summary>
+            <returns>True if the encoder works on this platform, False otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.ProResEncoderSettings">
+            <summary>
+            The settings of the ProRes Encoder.
+            </summary>
+            <remarks>
+            This class is sealed because users shouldn't inherit from it. Instead, create a new encoder along with its settings class.
+            </remarks>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat">
+            <summary>
+            The output format of the ProRes encoder.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes4444XQ">
+            <summary>
+            The 4444 XQ ProRes codec format, identified by four-character code ap4x.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes4444">
+            <summary>
+            The 4444 ProRes codec format, identified by four-character code ap4h.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes422HQ">
+            <summary>
+            The 422 HQ ProRes codec format, identified by four-character code apch.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes422">
+            <summary>
+            The 422 ProRes codec format, identified by four-character code apcn.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes422LT">
+            <summary>
+            The 422 LT ProRes codec format, identified by four-character code apcs.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat.ProRes422Proxy">
+            <summary>
+            The 422 Proxy ProRes codec format, identified by four-character code apco.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.ProResEncoderSettings.ProResColorDefinition">
+            <summary>
+            The list of available color definitions.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.ProResEncoderSettings.ProResColorDefinition.HD_Rec709">
+            <summary>
+            The Rec. 709 color space.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.ProResEncoderSettings.Format">
+            <summary>
+            The format of the encoder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.ProResEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.ProResEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAlpha">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.Encoder.ProResEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#CanCaptureAudio">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.CodecFormatSupportsAlphaChannel(UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat)">
+            <summary>
+            Indicates whether the requested ProRes codec format can encode an alpha channel or not.
+            </summary>
+            <param name="format">The ProRes codec format to check.</param>
+            <returns>True if the specified codec can encode an alpha channel, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#GetTextureFormat(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.UnityEditor#Recorder#Encoder#IEncoderSettings#ValidateRecording(UnityEditor.Recorder.Encoder.RecordingContext,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.SupportsCurrentPlatform">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.IsOutputFormatSupported(UnityEditor.Recorder.Encoder.ProResEncoderSettings.OutputFormat)">
+            <summary>
+            Indicates whether the specified ProRes codec format is supported on the current operating system or not.
+            </summary>
+            <param name="toCheck">The ProRes codec format to check.</param>
+            <returns>True if the specified output format is supported on the current operating system, False otherwise</returns>
+            <remarks>
+            On Windows, all formats are available.
+            macOS 10.13+ is required for ProRes codec formats 4444 and 422.
+            macOS 10.15+ is required for ProRes codec formats 4444 XQ, 422 HQ, 422 LT, and 422 Proxy.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.System#IEquatable{UnityEditor#Recorder#Encoder#ProResEncoderSettings}#Equals(UnityEditor.Recorder.Encoder.ProResEncoderSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.Equals(System.Object)">
+            <summary>
+            Compares the current object with another one.
+            </summary>
+            <param name="obj">The object to compare with the current one.</param>
+            <returns>True if the two objects are equal, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Encoder.ProResEncoderSettings.GetHashCode">
+            <summary>
+            Returns a hash code of all serialized fields.
+            </summary>
+            <returns>The hash code.</returns>
+        </member>
+        <member name="T:UnityEditor.Recorder.Encoder.RecordingContext">
+            <summary>
+            A structure that defines information that is passed to the encoder about the recording's inputs and requirements.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.width">
+            <summary>
+            The width of the recorded image.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.height">
+            <summary>
+            The height of the recorder image.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.fps">
+            <summary>
+            The frame rate of the recording.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.frameRateMode">
+            <summary>
+            The type of frame rate configuration of the recording.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.doCaptureAudio">
+            <summary>
+            Whether or not the encoder should capture audio.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.doCaptureAlpha">
+            <summary>
+            Whether or not the encoder should capture the alpha channel.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Encoder.RecordingContext.path">
+            <summary>
+            The path of the output file.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.MovieRecorderSettings">
+            <summary>
+            A class that represents the settings of a Movie Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.EncoderSettings">
+            <summary>
+            Use this property to define the encoder used by the Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.CaptureAlpha">
+            <summary>
+            Use this property to capture the alpha channel (True) or not (False) in the output.
+            </summary>
+            <remarks>
+            Alpha channel will be captured only if the output image format supports it.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.CaptureAudio">
+            <summary>
+            Use this property to capture the audio signal (True) or not (False) in the output.
+            </summary>
+            <remarks>
+            The audio signal will be captured only if the output format supports it.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.AccumulationSettings">
+            <summary>
+            Stores the AccumulationSettings properties.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.MovieRecorderSettings.GetAccumulationSettings">
+            <summary>
+            Use this method to get all the AccumulationSettings properties.
+            </summary>
+            <returns>AccumulationSettings</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.MovieRecorderSettings.IsAccumulationSupported">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.MovieRecorderSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.ImageInputSettings">
+            <summary>
+            Indicates the Image Input Settings currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.AudioInputSettings">
+            <summary>
+            Indicates the Audio Input Settings currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.InputsSettings">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.Extension">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.NeedToFlipVerticallyForOutputFormat">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Recorder.MovieRecorderSettings.GetRecordingContext">
+            <summary>
+            Returns a RecordingContext for the current settings.
+            </summary>
+            <returns>A RecordingContext populated with fields that the MovieRecorderSettings controls.</returns>
+            <remarks>
+            Not all fields of the RecordingContext are populated (e.g. path).
+            </remarks>
+            <exception cref="T:System.InvalidCastException">Thrown if the input is not recognized.</exception>
+        </member>
+        <member name="T:UnityEditor.Recorder.MovieRecorderSettings.VideoRecorderOutputFormat">
+            <summary>
+            Available options for encoders to register the formats they support.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoRecorderOutputFormat.MP4">
+            <summary>
+            Output the recording with the H.264 codec in an MP4 container.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoRecorderOutputFormat.WebM">
+            <summary>
+            Output the recording with the VP9 codec in a WebM container.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoRecorderOutputFormat.MOV">
+            <summary>
+            Output the recording with the ProRes codec in a MOV container.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.MovieRecorderSettings.VideoEncodingQuality">
+            <summary>
+            Available options for the encoding quality of videos.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoEncodingQuality.Low">
+            <summary>
+            Low value, safe for slower internet connections or clips where visual quality is not critical.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoEncodingQuality.Medium">
+            <summary>
+            Typical bit rate supported by internet connections.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.VideoEncodingQuality.High">
+            <summary>
+            High value, possibly exceeding typical internet connection capabilities.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.OutputFormat">
+            <summary>
+            Indicates the output video format currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.VideoBitRateMode">
+            <summary>
+            Indicates the video bit rate preset currently used for this Recorder.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.MovieRecorderSettings.EncodingQuality">
+            <summary>
+            Indicates the encoding quality to use for this Recorder.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.containerFormatSelected">
+            <summary>
+            The index of the currently selected container format in the list of formats that the registered encoders support.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderSelected">
+            <summary>
+            The index of the currently selected encoder in the list of registered encoders.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderPresetSelected">
+            <summary>
+            The index of the preset selected for the current encoder, when the encoder supports several presets (i.e., codec formats).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderPresetSelectedName">
+            <summary>
+            The name of the currently selected encoder preset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderPresetSelectedOptions">
+            <summary>
+            The custom options of the currently selected encoder preset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderPresetSelectedSuffixes">
+            <summary>
+            The extension (without leading dot) of the files created by the currently selected encoder preset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderColorDefinitionSelected">
+            <summary>
+            The index of the color definition selected for the current encoder, when the encoder supports color definition.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.MovieRecorderSettings.encoderCustomOptions">
+            <summary>
+            Some custom options that are specified for the currently selected encoder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.MovieRecorderSettings.ConvertBitrateMode(UnityEditor.Recorder.MovieRecorderSettings.VideoEncodingQuality)">
+            <summary>
+            A method that converts from a Recorder enum value to a core engine enum value.
+            </summary>
+            <param name="quality">The enum value to convert.</param>
+            <returns>The converted core engine enum value.</returns>
+            <exception cref="T:System.ComponentModel.InvalidEnumArgumentException">Throws an exception if the passed value is unexpected</exception>
+        </member>
+        <member name="T:UnityEditor.Recorder.FrameCapturer.BaseFCRecorderSettings">
+            <summary>
+            The settings common to all recordings that capture image data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FrameCapturer.BaseFCRecorderSettings.imageInputSettings">
+            <summary>
+            The properties of the image input.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.FrameCapturer.BaseFCRecorderSettings.InputsSettings">
+            <summary>
+            The list of settings of the Recorder inputs.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.ImageSource">
+            <summary>
+            Sets which source camera to use for recording (by some specific Recorders).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageSource.ActiveCamera">
+            <summary>
+            Use the current active camera.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageSource.MainCamera">
+            <summary>
+            Use the main camera.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.ImageSource.TaggedCamera">
+            <summary>
+            Use the first camera that matches a GameObject tag.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.FrameRatePlayback">
+            <summary>
+            Sets which frame rate type to use during recording.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.FrameRatePlayback.Constant">
+            <summary>
+            The frame rate doesn't vary during recording, even if the actual frame rate is lower or higher.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.FrameRatePlayback.Variable">
+            <summary>
+            Use the application's frame rate, which might vary during recording. This option is not supported by all Recorders.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecordMode">
+            <summary>
+            The mode that defines the way to manage the starting point and duration of the recording.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecordMode.Manual">
+            <summary>
+            Record every frame between when the recording is started and when it is stopped (either using the UI or through API methods).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecordMode.SingleFrame">
+            <summary>
+            Record one single frame according to the specified frame number.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecordMode.FrameInterval">
+            <summary>
+            Record all frames within an interval of frames according to the specified Start and End frame numbers.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecordMode.TimeInterval">
+            <summary>
+            Record all frames within a time interval according to the specified Start time and End time.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderSettings">
+            <summary>
+            Main base class for a Recorder settings.
+            Each Recorder needs to have its corresponding settings properly configured.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.OutputFile">
+            <summary>
+            Stores the path this Recorder will use to generate the output file.
+            It can be either an absolute or a relative path.
+            The file extension is automatically added.
+            Wildcards such as <c>DefaultWildcard.Time</c> are supported.
+            <seealso cref="T:UnityEditor.Recorder.DefaultWildcard"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.Enabled">
+            <summary>
+            Indicates if this Recorder is active when starting the recording. If false, the Recorder is ignored and generates no output.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.Take">
+            <summary>
+            Stores the current Take number. Automatically incremented after each recording session.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.Extension">
+            <summary>
+            Stores the file extension used by this Recorder (without the dot).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.FileNameGenerator">
+            <summary>
+            The object that resolves wildcards into a final path for output files.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.RecordMode">
+            <summary>
+            The mode that defines the way to manage the starting point and duration of the recording: either manually
+            or within a specific time or frame interval.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.FrameRatePlayback">
+            <summary>
+            The type of frame rate to use in the recording: constant or variable.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.FrameRate">
+            <summary>
+            The number of recorded frames per second. In constant frame rate mode, this represent a target value, while
+            in variable frame rate mode, this represents a maximum value.
+            </summary>
+            <seealso cref="P:UnityEditor.Recorder.RecorderSettings.FrameRatePlayback"/>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.StartFrame">
+            <summary>
+            The start frame of the recording.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.EndFrame">
+            <summary>
+            The end frame of the recording.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.StartTime">
+            <summary>
+            The start time of the recording.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.EndTime">
+            <summary>
+            The end time of the recording.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.CapFrameRate">
+            <summary>
+            Specifies whether or not to limit the frame rate when it is above the target frame rate.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.#ctor">
+            <summary>
+            The constructor of the class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.ValidityCheck(System.Collections.Generic.List{System.String})">
+            <summary>
+            Tests if the Recorder is correctly configured.
+            </summary>
+            <param name="errors">List of errors encountered.</param>
+            <returns>True if there are no errors, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.GetErrors(System.Collections.Generic.List{System.String})">
+            <summary>
+            Tests if the Recorder has any errors.
+            </summary>
+            <param name="errors">List of errors encountered.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.GetWarnings(System.Collections.Generic.List{System.String})">
+            <summary>
+            Tests if the Recorder has any warnings.
+            </summary>
+            <param name="warnings">List of warnings encountered.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.GetInfoMessages(System.Collections.Generic.List{System.String})">
+            <summary>
+            Checks if the Recorder has any info messages.
+            </summary>
+            <param name="info">List of info encountered.</param>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.IsPlatformSupported">
+            <summary>
+            Indicates if the current platform is supported (True) or not (False).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.NeedToFlipVerticallyForOutputFormat">
+            <summary>
+            Indicates whether the input must be flipped vertically (True) or not (False) for the output format.
+            </summary>
+            <remarks>
+            Some output formats might expect the image to be vertically flipped while others expect it as it comes from the engine,
+            due to different coordinate conventions.
+            </remarks>
+            <seealso cref="T:UnityEditor.Recorder.Encoder.EncoderCoordinateConvention"/>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecorderSettings.InputsSettings">
+            <summary>
+            Stores the list of Input settings required by this Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.OnAfterDuplicate">
+            <summary>
+            Override this method if any post treatment needs to be done after this Recorder is duplicated in the Recorder Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.OnValidate">
+            <summary>
+            Validation of serialized value.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.IsAccumulationSupported">
+            <summary>
+            Indicates whether the current Recorder supports Accumulation recording or not.
+            </summary>
+            <returns>True if the current Recorder supports Accumulation recording, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.UnityEngine#ISerializationCallbackReceiver#OnBeforeSerialize">
+            <summary>
+            Unity calls this method before serializing the object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.UnityEngine#ISerializationCallbackReceiver#OnAfterDeserialize">
+            <summary>
+            Unity calls this method after de-serializing the object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.OnBeforeSerialize">
+            <summary>
+            Called before a RecorderSetting is serialized.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettings.OnAfterDeserialize">
+            <summary>
+            Called after a RecorderSetting has been deserialized.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderSettingsAttribute">
+            <summary>
+            This attribute allows binding a Recorder Settings instance with a Recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettingsAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Constructor for the attribute.
+            </summary>
+            <param name="recorderType">The type of Recorder that uses this Recorder Settings instance.</param>
+            <param name="displayName">The Recorder's display name.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderSettingsAttribute.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            Constructor for the attribute.
+            </summary>
+            <param name="recorderType">The type of Recorder that uses this Recorder Settings instance.</param>
+            <param name="displayName">The Recorder's display name.</param>
+            <param name="iconName">The name of the icon.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecorderWindow">
+            <summary>
+            Main window class of the Recorder.
+            It can be accessed from an Editor script to show the Recorder Window and eventually Start and Stop the recording using current settings.
+            Recorder settings are saved in Library/Recorder/recorder.pref
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecorderWindow.MenuRoot">
+            <summary>
+            The location in the Unity Editor menu for the Recorder Window.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecorderWindow.MenuRootIndex">
+            <summary>
+            The priority of the Recorder Window entries in the menu.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderWindow.SetRecorderControllerSettings(UnityEditor.Recorder.RecorderControllerSettings)">
+            <summary>
+            Set the RecorderWindow controller settings and update the UI. This allow to set settings even if
+            the window is open.
+            </summary>
+            <param name="settings">The new <see cref="T:UnityEditor.Recorder.RecorderControllerSettings"/> to set.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderWindow.StartRecording">
+            <summary>
+            Used to Start the recording with current settings.
+            If not already the case, the Editor will also switch to PlayMode.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderWindow.IsRecording">
+            <summary>
+            Used to get the current state of the recording.
+            </summary>
+            <returns>True if the Recorder is started or being started. False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderWindow.StopRecording">
+            <summary>
+            Used to Stop current recordings if any.
+            Exiting PlayMode while the Recorder is recording will automatically Stop the recorder.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecorderWindow.ApplyPreset(UnityEditor.Recorder.RecorderControllerSettingsPreset)">
+            <summary>
+            Loads a previously saved Recorder List.
+            </summary>
+            <param name="preset">The instance of Recorder List to load.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder.RecordingSession">
+            <summary>
+            A class that represents a Recorder session, with support for processing incoming data and preparing as
+            well as cleaning up resources.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.RecordingSession.recorder">
+            <summary>
+            The Recorder associated with this session.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecordingSession.settings">
+            <summary>
+            The settings of the Recorder.
+            </summary>
+            <seealso cref="T:UnityEditor.Recorder.AnimationRecorderSettings"/>
+            <seealso cref="T:UnityEditor.Recorder.FrameCapturer.BaseFCRecorderSettings"/>
+            <seealso cref="T:UnityEditor.Recorder.AudioRecorderSettings"/>
+            <seealso cref="T:UnityEditor.Recorder.ImageRecorderSettings"/>
+            <seealso cref="T:UnityEditor.Recorder.MovieRecorderSettings"/>
+            <seealso cref="T:UnityEditor.Recorder.AudioRecorderSettings"/>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecordingSession.frameIndex">
+            <summary>
+            The index of the current frame being processed.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecordingSession.subFrameIndex">
+            <summary>
+            The index of the current sub frame being processed.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.RecordingSession.recorderTime">
+            <summary>
+            The time (in seconds) of the current frame.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.RecordingSession.Dispose">
+            <summary>
+            Cleans up the object's resources.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.BindingManager">
+            <summary>
+            This class manages Recorder references to GameObjects in the form of key-value pairs saved inside Recorder assets.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.BindingManager.Get(System.String)">
+            <summary>
+            Retrieves the GameObject bound to a specific key.
+            </summary>
+            <param name="id">The GameObject referenced by the key.</param>
+            <returns>The reference associated with the key.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.BindingManager.Duplicate(System.String,System.String)">
+            <summary>
+            Creates a new key and binds it to the same GameObject referenced by the specified key.
+            </summary>
+            <param name="id">The existing key from which you want to create a duplicate.</param>
+            <param name="newId">The new key to create.</param>
+        </member>
+        <member name="M:UnityEditor.Recorder.BindingManager.Set(System.String,UnityEngine.Object)">
+            <summary>
+            Creates a key-value pair in the Binding manager to reference a GameObject.
+            </summary>
+            <param name="id">The reference key.</param>
+            <param name="obj">The referenced GameObject.</param>
+        </member>
+        <member name="T:UnityEditor.Recorder._FrameRequestComponent">
+            <summary>
+            Base component used for requesting a new frame. This class uses coroutines and WaitForEndOfFrame.
+            This will not accumulate requests. All requests for the same frame will be merged into one request.
+            Thus, FrameReady will be called once.
+            This class pauses the project simulation (updates), waiting for the GPU to be ready.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder._FrameRequestComponent.projectTimeScale">
+            <summary>
+            Used to cache project's Time.TimeScale.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder._FrameRequestComponent.requestCount">
+            <summary>
+            Number of requests submitted to record a frame from LateUpdate.
+            This value shouldn't go over producedCount+1 or we would be requesting
+            too many frames at the same time and end up with copies.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder._FrameRequestComponent.frameProducedCount">
+            <summary>
+            Number of frame we did record in our coroutine.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder._FrameRequestComponent.currentState">
+            <summary>
+            Component current state.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Timeline.RecorderClip">
+            <summary>
+            Use this class to manage Recorder Clip Timeline integration.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Recorder.Timeline.RecorderClip.settings">
+            <summary>
+            Indicates the Recorder Settings instance used for this Clip.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Recorder.Timeline.RecorderClip.clipCaps">
+            <summary>
+            Recorder does not support any clip features.
+            For more information see: https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Timeline.ClipCaps.html
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Timeline.RecorderClip.CreatePlayable(UnityEngine.Playables.PlayableGraph,UnityEngine.GameObject)">
+            <summary>
+            For more information see: https://docs.unity3d.com/ScriptReference/Playables.PlayableAsset.CreatePlayable.html
+            </summary>
+            <param name="graph">The Playable Graph.</param>
+            <param name="owner">The GameObject containing the PlayableDirector.</param>
+            <returns>The playable that drives the AlembicStreamPlayer.</returns>
+        </member>
+        <member name="M:UnityEditor.Recorder.Timeline.RecorderClip.OnDestroy">
+            <summary>
+            This is called when the Recorder Clip is being destroyed.
+            For more information see: https://docs.unity3d.com/ScriptReference/ScriptableObject.OnDestroy.html
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Timeline.RecorderClip.OnBeforeSerialize">
+            <summary>
+            This is called before the Recorder Clip object is serialized.
+            For more information see: https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnBeforeSerialize.html
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Recorder.Timeline.RecorderClip.OnAfterDeserialize">
+            <summary>
+            This is called after the Recorder Clip object has been deserialized.
+            For more information see: https://docs.unity3d.com/ScriptReference/ISerializationCallbackReceiver.OnAfterDeserialize.html
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Recorder.Timeline.RecorderTrack">
+            <summary>
+            Indicates the Track type for the Recorder.
+            </summary>
+        </member>
+        <member name="T:IAccumulation">
+            <summary>
+            Interface to implement to allow the use of the Accumulation feature.
+            </summary>
+        </member>
+        <member name="M:IAccumulation.GetAccumulationSettings">
+            <summary>
+            Returns the settings of the Accumulation feature.
+            </summary>
+            <returns>AccumulationSettings</returns>
+        </member>
+        <member name="T:UnitySourceGeneratedAssemblyMonoScriptTypes_v1.MonoScriptData">
+            <summary>
+            Data is UTF-8 encoded strings
+            </summary>
+        </member>
+    </members>
+</doc>

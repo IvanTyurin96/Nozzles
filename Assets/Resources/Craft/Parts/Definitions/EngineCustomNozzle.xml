@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Part name="EngineCustomNozzle">
+  <PartType id="EngineCustomNozzle" includeInBodyDrag="true" name="EngineCustomNozzle" prefabPath="Craft/Parts/Prefabs/JetEngine1.prefab" mass="1530" price="1000" partCollisions="Default" defaultMaterials="0,1,2,3,4" subpartsSharePartStyle="false" stylesShareHeader="true">
+    <Modifiers>
+      <Config autoActivateIfNoStageOrActivationGroup="true" buoyancyBaseScale="1" buoyancyUserScale="1" castShadows="true" centerOfMass="0,0,0" collisionDisconnectImpulse="1000" collisionDisconnectVelocity="-1" collisionExplodeImpulse="1500" collisionExplodeVelocity="-1" collisionPreventExternalDisconnections="false" collisionVelocityMode="None" dragScale="1" dragScaleActive="1" dragScaleAngular="1" explosiveness="0" fuelLine="false" heatShield="0" heatShieldBaseScale="1" heatShieldMass="0" heatShieldScale="0" heatShieldValidation="true" ignoreValidation="false" includeInDrag="true" inertiaTensorBaseScale="1" inertiaTensorMin="0.05" inertiaTensorUserScale="1" initialCraftNodeId="-1" massScale="1" maxDamage="100" maxDrag="0" maxDragActive="0" maxTemperature="1500" occlusion="Auto" partCollisionHandling="Default" partCollisionResponse="Default" partScale="1,1,1" partSelectionEnabled="true" preventDebris="false" priceScale="1" raiseWaterEventsEvenIfNotBuoyant="true" renderQueue="Default" stageActivationType="Engine" supportsActivation="true" supportsTransparency="false" thermalMassRatio="1" inspectorEnabled="false" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <Fuselage autoResize="false" bottomScale="0.2,0.2" buoyancy="0" clampDistances="-1,1,-1,1,-1,1,-1,1" cornerRadiuses="1,1,1,1,1,1,1,1" deadWeight="0" deadWeightPercentage="-10" deformations="0,0,0" depthCurve="0" depthCurved="false" flattenNormals="None" fuelPercentage="1" meshMassMultiplier="1" meshPriceMultiplier="1" meshType="JetEngineShroud1" normalSmoothingAngle="60" offset="0,0.5,0" subpartIndex="1" supportsXZOffset="true" toolAutoAdaptBottom="false" toolAutoAdaptTop="false" toolIgnore="true" toolResizeBottom="false" toolResizeHeight="false" toolResizeRadius="false" toolResizeTop="false" toolShapeBottom="false" toolShapeTop="false" toolSupportsAddSection="false" topScale="0.3,0.3" volume="-1" volumeInner="-1" wallThickness="1,1" inspectorEnabled="false" partPropertiesEnabled="false" staticPriceAndMass="false" version="3" versionLast="3" versionsAllowed="" />
+      <JetEngine afterburnerThrottleStart="0.8" bypassRatio="0.3" compressionRatio="12.5" hasAfterburner="true" hasReverseThrust="false" mass="0" overrideAfterBurnerTemp="-1" overrideBurnerTemp="-1" overrideFanPressureRatio="-1" price="0" shroudCurvature="1" shroudLength="1" size="1.5" inspectorEnabled="true" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <Inlet inspectorEnabled="false" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <InputController activationGroup="0" currentValue="0" ignorePartActivationState="false" input="Throttle" invert="false" invertOnMirror="false" invertType="Output" max="1" min="0" outputCurveOffset="0" showActivationGroup="false" showInputAxis="true" showInvert="true" type="Standard" zeroOnDeactivate="true" inputId="Throttle" inspectorEnabled="true" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <InputController activationGroup="0" currentValue="0" ignorePartActivationState="false" input="Pitch" invert="false" invertOnMirror="false" invertType="Output" max="1" min="-1" outputCurveOffset="0" showActivationGroup="false" showInputAxis="true" showInvert="true" type="Standard" zeroOnDeactivate="true" inputId="Pitch" inspectorEnabled="true" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <InputController activationGroup="0" currentValue="0" ignorePartActivationState="false" input="Yaw" invert="false" invertOnMirror="false" invertType="Output" max="1" min="-1" outputCurveOffset="0" showActivationGroup="false" showInputAxis="true" showInvert="true" type="Standard" zeroOnDeactivate="true" inputId="Yaw" inspectorEnabled="true" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+      <Nozzles.CustomNozzle nozzleType="AL-31F" sizing="External" throttleAnimationSpeed="0.1" throttleMinAnimation="0" throttleMaxAnimation="1" exhaustMinScale="0.9" exhaustMaxScale="1.8" smokeScale="1.5" distortionMinScale="1" distortionMaxScale="1" throttleInputId="Throttle" pitchInputId="Pitch" yawInputId="Yaw" pitchAngle="10" yawAngle="10" rotatingSpeed="60" disableStockNozzle="true" nozzleScale="100" nozzleOffset="0" stockNozzleName="Nozzle" stockExhaustParticleSystemName="ExhaustParticleSystem" stockForceTransformName="ForceTransform" stockDistortionEffectName="DistortionEffect" stockSmokeParticleSystemName="SmokeParticleSystem" inspectorEnabled="true" partPropertiesEnabled="true" staticPriceAndMass="false" version="1" versionLast="1" versionsAllowed="" />
+    </Modifiers>
+    <AttachPoints>
+      <AttachPoint name="AttachPointSurface" surface="Collider" canSeek="false" />
+      <AttachPoint name="AttachPointTopLoad" tag="Top" position="0,1,0" rotation="270,180,0" positionOffset="0,0,0" rotationOffset="0,0,0" allowRotation="true" allowInvertedConnection="false" canReceive="true" canSeek="true" ignoreSurfaces="true" fuelLine="true" />
+      <AttachPoint name="AttachPointTop" tag="Top" position="0,1,0" rotation="270,180,0" positionOffset="0,0,0" rotationOffset="0,0,0" allowRotation="false" allowInvertedConnection="false" canReceive="true" canSeek="true" ignoreSurfaces="true" connectionType="Shell" />
+      <AttachPoint name="AttachPointRotate" tag="Front" position="0,0,2.271999" rotation="0,0,0" positionOffset="0,0,0" rotationOffset="0,0,0" allowRotation="true" allowInvertedConnection="false" canReceive="false" canSeek="true" ignoreSurfaces="false" rayCastFromCursor="true" />
+    </AttachPoints>
+    <SubpartTypes>
+      <SubpartType index="0" xmlName="core" displayName="Core" />
+      <SubpartType index="1" xmlName="shroud" displayName="Shroud" />
+      <SubpartType index="2" xmlName="fan" displayName="Fan" />
+      <SubpartType index="3" xmlName="nozzle" displayName="Nozzle" />
+      <SubpartType index="4" xmlName="inletCone" displayName="Inlet Cone" />
+    </SubpartTypes>
+  </PartType>
+  <DesignerParts>
+    <DesignerPart name="EngineCustomNozzle" category="Airplane" description="Cloned Griffin engine with AL-31F or AL-41F custom nozzle" order="22" showInDesigner="true" snapshotDistanceScaler="1" snapshotPartOffset="0,-0.5,0" snapshotRotation="30,60,135">
+      <Assembly>
+        <Parts>
+          <Part id="1" partType="EngineCustomNozzle" position="0,0,0" rotation="0,0,0">
+            <Config />
+            <Fuselage />
+            <JetEngine />
+            <Inlet />
+            <InputController />
+            <InputController />
+            <InputController />
+            <Nozzles.CustomNozzle />
+          </Part>
+        </Parts>
+      </Assembly>
+    </DesignerPart>
+  </DesignerParts>
+  <PartStyles>
+    <SubpartStyles subpartIndex="0">
+      <Style id="Core" displayName="Core">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+    </SubpartStyles>
+    <SubpartStyles subpartIndex="1">
+      <Style id="JetEngineShroud-1" displayName="Default">
+        <TextureStyles>
+          <TextureStyle id="Fuselage1" />
+          <TextureStyle id="Fuselage2" />
+          <TextureStyle id="Fuselage3" />
+          <TextureStyle id="Fuselage4" />
+          <TextureStyle id="Fuselage5" />
+          <TextureStyle id="Fuselage6" />
+          <TextureStyle id="Fuselage7" />
+          <TextureStyle id="Fuselage8" />
+          <TextureStyle id="Fuselage9" />
+          <TextureStyle id="Fuselage10" />
+          <TextureStyle id="Fuselage11" />
+          <TextureStyle id="Default" />
+        </TextureStyles>
+      </Style>
+      <Style id="JetEngineShroud-2" displayName="Chevron">
+        <TextureStyles>
+          <TextureStyle id="Fuselage1" />
+          <TextureStyle id="Fuselage2" />
+          <TextureStyle id="Fuselage3" />
+          <TextureStyle id="Fuselage4" />
+          <TextureStyle id="Fuselage5" />
+          <TextureStyle id="Fuselage6" />
+          <TextureStyle id="Fuselage7" />
+          <TextureStyle id="Fuselage8" />
+          <TextureStyle id="Fuselage9" />
+          <TextureStyle id="Fuselage10" />
+          <TextureStyle id="Fuselage11" />
+          <TextureStyle id="Default" />
+        </TextureStyles>
+      </Style>
+      <Style id="JetEngineShroud-None" displayName="None (Legacy)" hidden="true">
+        <TextureStyles>
+          <TextureStyle id="Default" />
+        </TextureStyles>
+      </Style>
+      <Style id="JetEngineShroud-None-2" displayName="None">
+        <TextureStyles>
+          <TextureStyle id="Default" />
+        </TextureStyles>
+      </Style>
+    </SubpartStyles>
+    <SubpartStyles subpartIndex="2">
+      <Style id="Straight" displayName="Straight">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="Curved" displayName="Curved">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="SCurve" displayName="S Curve">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+    </SubpartStyles>
+    <SubpartStyles subpartIndex="3">
+      <Style id="Military" displayName="Military">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="Civilian" displayName="Civilian">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="Basic" displayName="Basic">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+    </SubpartStyles>
+    <SubpartStyles subpartIndex="4">
+      <Style id="Spiral" displayName="Spiral">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="Spike" displayName="Spike">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="Round" displayName="Round">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+      <Style id="None" displayName="None">
+        <TextureStyles>
+          <TextureStyle id="JetEngineCore" />
+        </TextureStyles>
+      </Style>
+    </SubpartStyles>
+  </PartStyles>
+</Part>
